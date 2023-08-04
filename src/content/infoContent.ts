@@ -1,7 +1,7 @@
 const infoContent = [
     {
         title: "Front-End Development",
-        content: "Proficient in current web teachnologies, I can build you website front-ends that use dynamic content and are pixel perfect to the design. I love TypeScript, can work with reactive frameworks and write semantic markup to meet accessibility standards."
+        content: "Proficient in current web technologies, I can build you website front-ends that use dynamic content and are pixel perfect to the design. I love TypeScript, can work with reactive frameworks and write semantic markup to meet accessibility standards."
     },
     {
         title: "Marketing Technologies",

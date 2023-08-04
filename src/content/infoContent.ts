@@ -13,7 +13,7 @@ const infoContent = [
     },
     {
         title: "Teamwork",
-        content: "Having worked in various types of environments, including running a small business, I understand the importance of a well funtioning team. I have enjoyed working within the Agile system, pair programming, planning and socialising on a Friday evening."
+        content: "Having worked in various types of environments, including running a small business, I understand the importance of a well functioning team. I have enjoyed working within the Agile system, pair programming, planning and socialising on a Friday evening."
     },
     {
         title: "Problem Solving",

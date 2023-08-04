@@ -75,7 +75,7 @@ const timelineContent = [
         startYear: '2010',
         endMonth: 'Nov',
         endYear: '2012',
-        description: 'Tutotr',
+        description: 'Tutor',
         location: 'Brunswick Tutors',
         items: [
             "Tutored mathematics and physics to high school students",

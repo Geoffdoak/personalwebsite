@@ -1,86 +1,76 @@
-import { randomUUID } from 'crypto'
-import React, { PropsWithChildren, useRef, useState, useReducer} from 'react'
+import React, {ReactElement, useReducer} from 'react'
 import AccordionItem from './accordionItem'
+import { AccordionItemProps } from './accordionItem'
 
+type Action = {
+    type: 'TOGGLE',
+    payload: string | number
+}
+
+// Reducer only has one action for now. Possibly add close all action later.
+// Opening an accordion item will close other accordion items
 function reducer(state: AccordionState, action: Action): AccordionState {
     switch (action.type) {
         case 'TOGGLE': {
-            const items = state.items.map(item => {
-                let isOpen = item.isOpen
-
-                if (action.payload === item.id) {
-                    isOpen = !isOpen
-                } else {
-                    isOpen = false
-                }
-                
+            const items = state.map(item => {
                 return {
                     ...item,
-                    isOpen: isOpen
+                    isOpen: action.payload === item.id ? !item.isOpen : false
                 }
             })
             
-            return { ...state, items }
+            return items
         }
     }
-
     return state
 }
 
-type Action = {
-    type: string,
-    payload: string
-}
-
-type AccordionProps = {
-    items: {
-        title: string,
-        content: string
-    }[]
-}
 
 type AccordionState = {
-    items: {
-        title: string,
-        content: string,
-        isOpen: boolean,
-        id: string
-    }[]
-}
+    title: string,
+    isOpen: boolean,
+    id: number,
+    children?: ReactElement | ReactElement[] | string
+}[]
 
-export default function Accordion(props: PropsWithChildren<AccordionProps>) {
-    console.log('children', React.Children.toArray(props.children))
-    const initialState = {
-        items: props.items.map(item => {
-            const id = crypto.randomUUID()
+// Type check for child items incase they are not accordion items
+type AccordionItem = ReactElement<AccordionItemProps>
 
-            return {
-                id,
-                isOpen: false,
-                ...item
-            }
-        })
-    }
+export default function Accordion(props: {children: AccordionItem | AccordionItem[]}) {
+    const cssClass = 'accordion'
+
+    // Get the children their state can be managed here
+    const children = React.Children.toArray(props.children) as AccordionItem[]
+    
+    // Map the children with correct intitial state
+    const initialState = children.map((child, index) => {
+        return {
+            id: index,
+            isOpen: false,
+            title: child.props.title,
+            children: child.props.children
+        }
+    })
 
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    function handleToggle(id: string) {
+    function handleToggle(id: number) {
         dispatch({ type: 'TOGGLE', payload: id})
     }
     
     return (
-      <div>
-        {state.items.map(item => 
+      <div className={cssClass}>
+        {state.map(item =>(
             <AccordionItem
                 title={item.title}
-                content={item.content}
-                isOpen={item.isOpen}
-                handleToggle={(id)=>handleToggle(id)}
                 id={item.id}
                 key={item.id}
-             />
-        )}
-        {props.children}
+                isOpen={item.isOpen}
+                handleToggle={handleToggle}
+            >
+                {item.children}
+            </AccordionItem>
+        ))}
       </div>
     )
 }

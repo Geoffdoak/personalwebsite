@@ -1,27 +1,51 @@
 'use client'
 
-import Image from 'next/image'
-import styles from './page.module.css'
-import Test from '@/components/test'
-import { useState, useRef, useLayoutEffect, useReducer } from 'react'
-import ExampleComponent from '@/components/exampleComponent'
+// Components
+import Title from '@/components/title'
+import Bio from '@/components/bio'
 import Accordion from '@/components/accordion'
-import testContent from '@/content/content'
-import { title } from 'process'
+import AccordionItem from '@/components/accordionItem'
+import Timeline from '@/components/timeline'
+import Info from '@/components/info'
+import Links from '@/components/links'
+
+// Content
+import bioContent from '@/content/bioContent'
+import timelineContent from '@/content/timelineContent'
+import infoContent from '@/content/infoContent'
+import educationContent from '@/content/educationContent'
+import projectsContent from '@/content/projectsContent'
+import linkContent from '@/content/linksContent'
+
 
 
 export default function Home() {
-  const accordions = testContent.sections.map((section) => {
-    return {
-      title: section.title,
-      content: section.content
-    }
-  })
-  // console.log(accordions)
   return (
-    <div>
-      <Accordion items={accordions}>
-        <ExampleComponent />
+    // Arrange Content here
+    <div id='content'>
+      <Title
+        heading='Geoffrey Doak'
+        subHeading='Mar-Tech / Front-End Developer'
+      />
+      <Bio
+        content={bioContent.content}
+      />
+      <Accordion>
+        <AccordionItem title='Experience'>
+          <Timeline events={timelineContent} />
+        </AccordionItem>
+        <AccordionItem title='Skills'>
+          <Info items={infoContent} />
+        </AccordionItem>
+        <AccordionItem title='Education'>
+          <Info items={educationContent} />
+        </AccordionItem>
+        <AccordionItem title='Projects'>
+          <Links items={projectsContent} />
+        </AccordionItem>
+        <AccordionItem title='Links'>
+          <Links items={linkContent} />
+        </AccordionItem>
       </Accordion>
     </div>
   )

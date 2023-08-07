@@ -5,7 +5,7 @@ const educationContent = [
     },
     {
         title: "Bachelor of Science",
-        content: "From the University of Melbourne with a major Applied Mathematics."
+        content: "From the University of Melbourne with a major in Applied Mathematics."
     },
     {
         title: "Bachelor of Commerce",
